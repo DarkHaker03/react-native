@@ -1,4 +1,4 @@
 export type RootStackParamList = {
-  autoregistration: undefined,
+  autorization: undefined,
   posts: undefined,
 };
