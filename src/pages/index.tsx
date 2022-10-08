@@ -1,7 +1,7 @@
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { RootStackParamList } from "../types";
-import { Posts } from './posts/ui';
+import { Posts } from './posts';
 import { Autorization } from './autoregistration';
 import { StatusBar, StyleSheet, View } from "react-native";
 import { autorizationModel } from "../processes/autorization";

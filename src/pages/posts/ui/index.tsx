@@ -1,5 +1,5 @@
 import { FC, useEffect, useState } from "react";
-import { Image, ScrollView, StyleSheet, Text, View } from "react-native";
+import { Image, ScrollView, Text, View } from "react-native";
 import axios from 'axios';
 import { isPhoneModel } from "../../../processes/isPhone";
 import { useUnit } from "effector-react";
