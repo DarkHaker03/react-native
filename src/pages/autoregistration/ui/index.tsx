@@ -12,14 +12,22 @@ const Autorization: FC = () => {
   const [login, setLogin] = useState<string>('');
   const [password, setPassword] = useState<string>('');
   const isPhone = useUnit(isPhoneModel.$state);
+  console.log(isPhone);
+  const autorization = () => {
+    if (login === LOGIN && password === PASSWORD) {
+      autorizationModel.set(true);
+    } else {
+      alert('error');
+    }
+  }
   return (
-    <View style={{ alignItems: 'center', justifyContent: 'center', flex: 1, backgroundColor: '#fff' }}>
+    <View style={[!isPhone && styles.center, { flex: 1, backgroundColor: '#fff' }]}>
       <View style={isPhone ? styles.body : styles.bodyTablet}>
         <Text style={styles.logoTablet}>
           Autorization
         </Text>
-        <View style={isPhone ? styles.container : styles.container2}>
-          <Text style={styles.text}>
+        <View style={isPhone ? styles.container : styles.containerTablet}>
+          <Text style={[styles.text, { marginBottom: 13 }]}>
             login
           </Text>
           <TextInput
@@ -27,8 +35,8 @@ const Autorization: FC = () => {
             style={isPhone ? styles.input : styles.inputTablet}
           />
         </View>
-        <View style={isPhone ? styles.container : styles.container2}>
-          <Text style={styles.text}>
+        <View style={isPhone ? styles.container : styles.containerTablet}>
+          <Text style={[styles.text, { marginBottom: 13 }]}>
             password
           </Text>
           <TextInput
@@ -37,15 +45,7 @@ const Autorization: FC = () => {
           />
         </View>
         <Pressable
-          onPress={
-            () => {
-              if (login === LOGIN && password === PASSWORD) {
-                autorizationModel.set(true);
-              } else {
-                alert('error');
-              }
-            }
-          }
+          onPress={autorization}
           style={styles.btn}
         >
           <Text style={styles.text}>

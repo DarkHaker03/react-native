@@ -11,7 +11,7 @@ const styles = StyleSheet.create({
     paddingTop: 3,
     paddingBottom: 32,
     maxWidth: 480,
-    width: '80%'
+    width: '100%'
   },
   bodyTablet: {
     borderColor: '#27569C',
@@ -70,12 +70,15 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
     marginVertical: 13,
   },
-  container2: {
+  containerTablet: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'flex-end',
     marginBottom: 25,
     width: '95%'
+  },
+  center: {
+    alignItems: 'center', justifyContent: 'center',
   }
 })
 

@@ -1,9 +1,11 @@
 import { useUnit } from "effector-react";
 import { autorizationModel } from "../../../processes/autorization";
 import { isPhoneModel } from "../../../processes/isPhone";
-import { Image, Pressable, StyleSheet, View } from "react-native";
+import { Image, Pressable, View } from "react-native";
+import styles from "../styles";
+import { FC } from "react";
 
-const Header = () => {
+const Header: FC = () => {
   const { $state, set } = autorizationModel;
   const [isLoggedIn, setIsLoggedIn, isPhone] = useUnit([$state, set, isPhoneModel.$state]);
   return (
@@ -41,26 +43,3 @@ const Header = () => {
 }
 
 export { Header };
-
-const styles = StyleSheet.create({
-  header: {
-    backgroundColor: '#E4B062',
-    height: 118,
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    paddingHorizontal: 15,
-    alignItems: 'center',
-  },
-  logo: {
-    width: 70,
-    height: 63,
-  },
-  fullLogo: {
-    width: 273,
-    height: 63,
-  },
-  logout: {
-    width: 62,
-    height: 56,
-  }
-})
