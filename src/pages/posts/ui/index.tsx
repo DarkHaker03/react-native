@@ -1,26 +1,23 @@
-import { FC, useEffect, useState } from "react";
+import { FC } from "react";
 import { Image, ScrollView, Text, View } from "react-native";
 import { useUnit } from "effector-react";
 import styles from "./styles";
-import { ImgArguments, PostArguments, UserArguments } from "../model";
+import { PostArguments } from "../model";
 import { isPhoneModel } from "../../../processes/isPhone";
-import { getFx } from "../../../shared/api/get";
+import { $users, $posts, $photos } from "../model";
 
 const Posts: FC = () => {
-  const [users, setUsers] = useState<UserArguments[]>([]);
-  const [posts, setPosts] = useState<PostArguments[]>([]);
-  const [photos, setPhotos] = useState<ImgArguments[]>([]);
-  const isPhone = useUnit(isPhoneModel.$state);
-  useEffect(() => {
-    (async () => {
-      const USERS = await getFx('https://jsonplaceholder.typicode.com/users');
-      const POSTS = await getFx('https://jsonplaceholder.typicode.com/posts');
-      const PHOTOS = await getFx('https://jsonplaceholder.typicode.com/photos');
-      setUsers(USERS);
-      setPosts(POSTS);
-      setPhotos(PHOTOS);
-    })();
-  }, [])
+  const [
+    isPhone,
+    users,
+    posts,
+    photos,
+  ] = useUnit([
+    isPhoneModel.$state,
+    $users,
+    $posts,
+    $photos,
+  ]);
   return (
     <View style={{ flex: 1, backgroundColor: '#fff' }}>
       <ScrollView>

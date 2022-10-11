@@ -1,4 +1,5 @@
 import { createEvent, createStore } from "effector";
+import { api } from "../../../shared/api";
 
 
 export type AddressArguments = {
@@ -42,7 +43,6 @@ export type ImgArguments = {
   thumbnailUrl: string,
 }
 
-
 export const setUsers = createEvent<UserArguments[]>();
 export const setPosts = createEvent<PostArguments[]>();
 export const setPhotos = createEvent<ImgArguments[]>();
@@ -54,3 +54,12 @@ export const $photos = createStore<ImgArguments[]>([]);
 $users.on(setUsers, (_, newState) => newState);
 $posts.on(setPosts, (_, newState) => newState);
 $photos.on(setPhotos, (_, newState) => newState);
+
+(async () => {
+  const USERS = await api.getFx('https://jsonplaceholder.typicode.com/users');
+  const POSTS = await api.getFx('https://jsonplaceholder.typicode.com/posts');
+  const PHOTOS = await api.getFx('https://jsonplaceholder.typicode.com/photos');
+  setUsers(USERS);
+  setPosts(POSTS);
+  setPhotos(PHOTOS);
+})()
