@@ -31,6 +31,11 @@ const styles = StyleSheet.create({
     marginBottom: 22,
     width: 150,
     height: 150,
+  },
+  container: {
+    flexWrap: 'wrap',
+    flexDirection: 'row',
+    justifyContent: 'space-between'
   }
 })
 

@@ -6,6 +6,13 @@ import { PostArguments } from "../model";
 import { isPhoneModel } from "../../../processes/isPhone";
 import { $users, $posts, $photos } from "../model";
 
+const POST_DEFAULT: PostArguments = {
+  userId: '',
+  id: '',
+  title: '',
+  body: ''
+};
+
 const Posts: FC = () => {
   const [
     isPhone,
@@ -21,24 +28,15 @@ const Posts: FC = () => {
   return (
     <View style={{ flex: 1, backgroundColor: '#fff' }}>
       <ScrollView>
-        <View style={!isPhone && { flexWrap: 'wrap', flexDirection: 'row', justifyContent: 'space-between' }}>
-          {users.map(({ id, company, name }) => {
-            let post: PostArguments = {
-              userId: '',
-              id: '',
-              title: '',
-              body: ''
-            };
-            if (posts.length !== 0) {
-              post = posts.filter((item) => item.id === id)[0];
-            }
-            let photoUrl: string = '';
-            if (photos.length !== 0) {
-              photoUrl = photos.filter((item) => item.albumId == Number(post.userId))[0].url;
-            }
-            console.log(photoUrl);
+        <View style={!isPhone && styles.container}>
+          {users.map((user) => {
+            const post = posts ? posts.filter((item) => item.id === user.id)[0] : POST_DEFAULT;
+            const photoUrl = photos
+              ? photos.filter((item) => item.albumId == Number(post.userId))[0].url
+              : '';
+
             return (
-              <View style={isPhone ? styles.post : styles.postTablet} key={id}>
+              <View style={isPhone ? styles.post : styles.postTablet} key={user.id}>
                 {!isPhone
                   && <Image
                     style={styles.img}
@@ -46,10 +44,10 @@ const Posts: FC = () => {
                   />
                 }
                 <Text style={styles.text}>
-                  Autor:{name}
+                  Autor:{user.name}
                 </Text>
                 <Text style={styles.text}>
-                  Company:{company.name}
+                  Company:{user.company.name}
                 </Text>
                 <Text style={styles.text}>
                   Title:{post.title}
