@@ -1,50 +1,10 @@
 import { FC, useEffect, useState } from "react";
 import { Image, ScrollView, Text, View } from "react-native";
-import axios from 'axios';
-import { isPhoneModel } from "../../../processes/isPhone";
 import { useUnit } from "effector-react";
 import styles from "./styles";
-
-type AddressArguments = {
-  street: string,
-  suite: string,
-  city: string,
-  zipcode: string,
-  geo: {
-    lat: string,
-    lng: string,
-  }
-}
-
-type UserArguments = {
-  id: string,
-  name: string,
-  username: string,
-  email: string,
-  address: AddressArguments,
-  phone: string,
-  website: string,
-  company: {
-    name: string,
-    catchPhrase: string,
-    bs: string,
-  }
-}
-
-type PostArguments = {
-  userId: string,
-  id: string,
-  title: string,
-  body: string,
-}
-
-type ImgArguments = {
-  albumId: number,
-  id: number,
-  title: string,
-  url: string,
-  thumbnailUrl: string,
-}
+import { ImgArguments, PostArguments, UserArguments } from "../model";
+import { isPhoneModel } from "../../../processes/isPhone";
+import { getFx } from "../../../shared/api/get";
 
 const Posts: FC = () => {
   const [users, setUsers] = useState<UserArguments[]>([]);
@@ -53,12 +13,12 @@ const Posts: FC = () => {
   const isPhone = useUnit(isPhoneModel.$state);
   useEffect(() => {
     (async () => {
-      const newData = (await axios.get<UserArguments[]>('https://jsonplaceholder.typicode.com/users')).data;
-      const newData2 = (await axios.get<PostArguments[]>('https://jsonplaceholder.typicode.com/posts')).data;
-      const newData3 = (await axios.get<ImgArguments[]>('https://jsonplaceholder.typicode.com/photos')).data;
-      setUsers(newData);
-      setPosts(newData2);
-      setPhotos(newData3);
+      const USERS = await getFx('https://jsonplaceholder.typicode.com/users');
+      const POSTS = await getFx('https://jsonplaceholder.typicode.com/posts');
+      const PHOTOS = await getFx('https://jsonplaceholder.typicode.com/photos');
+      setUsers(USERS);
+      setPosts(POSTS);
+      setPhotos(PHOTOS);
     })();
   }, [])
   return (

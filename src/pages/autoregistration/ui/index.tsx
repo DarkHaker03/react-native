@@ -12,7 +12,6 @@ const Autorization: FC = () => {
   const [login, setLogin] = useState<string>('');
   const [password, setPassword] = useState<string>('');
   const isPhone = useUnit(isPhoneModel.$state);
-  console.log(isPhone);
   const autorization = () => {
     if (login === LOGIN && password === PASSWORD) {
       autorizationModel.set(true);
@@ -27,19 +26,21 @@ const Autorization: FC = () => {
           Autorization
         </Text>
         <View style={isPhone ? styles.container : styles.containerTablet}>
-          <Text style={[styles.text, { marginBottom: 13 }]}>
+          <Text style={[styles.text, isPhone && { marginBottom: 13 }]}>
             login
           </Text>
           <TextInput
             onChangeText={setLogin}
+            value={login}
             style={isPhone ? styles.input : styles.inputTablet}
           />
         </View>
         <View style={isPhone ? styles.container : styles.containerTablet}>
-          <Text style={[styles.text, { marginBottom: 13 }]}>
+          <Text style={[styles.text, isPhone && { marginBottom: 13 }]}>
             password
           </Text>
           <TextInput
+            value={password}
             onChangeText={setPassword}
             style={isPhone ? styles.input : styles.inputTablet}
           />
